@@ -1,0 +1,842 @@
+/* =========================================================
+   IF MY LIFE WERE A PLAYLIST - STYLESHEET
+   Clean, minimal, nostalgic vinyl archive aesthetic
+   ========================================================= */
+
+/* --- CSS Variables / Design Tokens --- */
+:root {
+  --bg-color: #000000;          /* Pure black background */
+  --surface-color: #0a0a0a;     /* Deep black surface */
+  --text-main: #f5f2eb;         /* Warm off-white */
+  --text-muted: #8e8a84;        /* Soft vintage grey */
+  --text-faint: #55524e;        /* Subtle divider tone */
+  --accent-gold: #d4af37;       /* Gentle vintage gold highlight */
+  --vinyl-base: #111111;        /* Vinyl disc deep black */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* --- Base & Reset --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Views & Page Transitions --- */
+.view {
+  display: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  min-height: 100vh;
+  padding: 40px 24px 80px;
+}
+
+.view.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   1. MAIN PAGE VIEW
+   ========================================================= */
+
+/* Header */
+.site-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 15px auto 65px;
+  position: relative;
+}
+
+/* Editorial Pretitle Badge */
+.header-pretitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.pretitle-rule {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.pretitle-text {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+/* Bold Artistic Editorial Title */
+.site-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.8rem, 7.5vw, 5.2rem);
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-line {
+  display: block;
+}
+
+.title-line-1 {
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-shadow: 0 4px 30px rgba(255, 255, 255, 0.15);
+}
+
+.title-line-2 {
+  letter-spacing: -0.01em;
+  color: #f7f4ed;
+}
+
+.title-playlist {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  display: inline-block;
+  position: relative;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.35);
+}
+
+/* Subtitle Tagline */
+.tagline {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 24px;
+}
+
+.header-divider {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.35), transparent);
+  margin: 22px auto 0;
+}
+
+/* 4-Record Grid */
+.record-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(240px, 340px));
+  gap: 50px 40px;
+  justify-content: center;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+/* Individual Record Card */
+.record-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.record-card:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  border-radius: 12px;
+}
+
+/* Vinyl Disc Container in Grid */
+.record-card .vinyl-disc {
+  width: clamp(200px, 28vw, 300px);
+  height: clamp(200px, 28vw, 300px);
+  position: relative;
+  border-radius: 50%;
+  background-color: var(--vinyl-base);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 1px rgba(255, 255, 255, 0.15);
+  transition: transform 0.45s cubic-bezier(0.25, 1.25, 0.5, 1), box-shadow 0.45s cubic-bezier(0.25, 1.25, 0.5, 1), filter 0.45s ease;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+}
+
+/* Subtle Tactile 3D Popping & Lifting Effect on Main Page */
+.record-card:hover .vinyl-disc {
+  transform: translateY(-14px) scale(1.06);
+  box-shadow: 
+    0 26px 50px -10px rgba(0, 0, 0, 0.95),
+    0 12px 28px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(255, 255, 255, 0.14),
+    0 0 1px 1px rgba(255, 255, 255, 0.25);
+  filter: brightness(1.05);
+}
+
+/* Record Card Info Underneath */
+.record-card-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.record-index {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.record-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--text-main);
+  transition: color 0.3s ease;
+}
+
+.record-card:hover .record-title {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+}
+
+.record-song {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  margin-top: 60px;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   VINYL RECORD COMPONENT (Used in both Grid & Detail)
+   ========================================================= */
+
+/* Concentric Vinyl Grooves */
+.vinyl-grooves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at center,
+    #111111 0px,
+    #111111 2px,
+    #1a1a1a 3px,
+    #111111 4px,
+    #0d0d0d 6px,
+    #1f1f1f 7px,
+    #111111 8px
+  );
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+}
+
+/* Vinyl Spotlight Reflective Sheen (Conic Gradient) */
+.vinyl-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 45deg at 50% 50%,
+    rgba(255, 255, 255, 0.0) 0deg,
+    rgba(255, 255, 255, 0.09) 35deg,
+    rgba(255, 255, 255, 0.14) 45deg,
+    rgba(255, 255, 255, 0.09) 55deg,
+    rgba(255, 255, 255, 0.0) 90deg,
+    rgba(255, 255, 255, 0.0) 180deg,
+    rgba(255, 255, 255, 0.09) 215deg,
+    rgba(255, 255, 255, 0.14) 225deg,
+    rgba(255, 255, 255, 0.09) 235deg,
+    rgba(255, 255, 255, 0.0) 270deg,
+    rgba(255, 255, 255, 0.0) 360deg
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Circular Center Label (Artwork) */
+.vinyl-center-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.8), 0 0 6px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  background-color: #222;
+}
+
+.vinyl-center-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Center Spindle Hole */
+.spindle-hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14%;
+  height: 14%;
+  background-color: #050505;
+  border-radius: 50%;
+  border: 1.5px solid rgba(220, 220, 220, 0.65);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.9);
+  z-index: 3;
+}
+
+/* =========================================================
+   2. ALBUM DETAIL VIEW
+   ========================================================= */
+
+#detail-view {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Atmospheric Blurred Memory Backdrop (Upper Section Only) */
+.detail-atmosphere-backdrop {
+  position: absolute;
+  top: -40px; /* extends to top edge of page padding */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 570px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.detail-atmosphere-backdrop img {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  object-fit: cover;
+  object-position: center;
+  filter: blur(60px) saturate(1.4) brightness(0.42);
+  transform: scale(1.1);
+  opacity: 0.85;
+  transition: opacity 0.8s ease, filter 0.8s ease;
+}
+
+.atmosphere-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% 45%, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.65) 60%, #000000 100%),
+    linear-gradient(to bottom, 
+      rgba(0, 0, 0, 0.5) 0%, 
+      rgba(0, 0, 0, 0.15) 25%, 
+      rgba(0, 0, 0, 0.5) 60%, 
+      rgba(0, 0, 0, 0.95) 86%, 
+      #000000 100%
+    );
+}
+
+/* Foreground elements in detail view */
+.detail-nav,
+.detail-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Back Navigation */
+.detail-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.back-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-main);
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+}
+
+.back-btn:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.06);
+  transform: translateX(-3px);
+}
+
+.back-arrow {
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover .back-arrow {
+  transform: translateX(-3px);
+}
+
+.track-indicator {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Detail View Layout Container */
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================================================
+   ALBUM SHOWCASE: Sleeve + Sliding Vinyl
+   ========================================================= */
+
+.album-showcase {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 580px;
+  height: 380px;
+  margin: 10px auto 25px;
+}
+
+/* Square Album Sleeve (Cardboard jacket on the left) */
+.album-sleeve {
+  position: absolute;
+  left: 20px;
+  width: 320px;
+  height: 320px;
+  z-index: 10;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 
+    -12px 16px 36px rgba(0, 0, 0, 0.9),
+    0 0 2px rgba(255, 255, 255, 0.2);
+  background-color: #121212;
+}
+
+.album-sleeve img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Realistic cardboard jacket spine & sheen */
+.sleeve-spine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.2), transparent);
+  pointer-events: none;
+}
+
+.sleeve-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Vinyl Disc Wrapper & Sliding Position */
+.vinyl-disc-wrapper {
+  position: absolute;
+  left: 20px;
+  width: 320px;
+  height: 320px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(130px);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Detail Vinyl Disc - partially sliding out from behind the sleeve */
+#detail-vinyl {
+  width: 310px;
+  height: 310px;
+  border-radius: 50%;
+  position: relative;
+  background-color: var(--vinyl-base);
+  box-shadow: 5px 10px 30px rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  animation: spinRecord 5s linear infinite;
+  animation-play-state: paused;
+  transition: box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+#detail-vinyl:hover {
+  box-shadow: 8px 14px 35px rgba(0, 0, 0, 0.95), 0 0 16px rgba(255, 255, 255, 0.1);
+  filter: brightness(1.08);
+}
+
+/* Play/Pause Center Icon Overlay */
+.vinyl-play-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.vinyl-play-indicator svg {
+  width: 20px;
+  height: 20px;
+  color: #ffffff;
+}
+
+.vinyl-play-indicator .pause-icon {
+  display: none;
+}
+
+/* Show icon on record hover */
+#detail-vinyl:hover .vinyl-play-indicator {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* When playing: update icon */
+#detail-vinyl.is-playing .vinyl-play-indicator .play-icon {
+  display: none;
+}
+#detail-vinyl.is-playing .vinyl-play-indicator .pause-icon {
+  display: block;
+}
+
+/* =========================================================
+   3. MUSIC INTERACTION: ROTATING ANIMATION & FLOATING NOTES
+   ========================================================= */
+
+/* The vinyl rotates continuously when playing, pauses smoothly when stopped */
+#detail-vinyl.is-playing {
+  animation-play-state: running;
+}
+
+@keyframes spinRecord {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Floating Musical Notes Animation on Vinyl Click */
+.floating-note {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 100;
+  font-family: var(--font-serif);
+  color: #f7f4ed;
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.8),
+    0 0 16px rgba(212, 175, 55, 0.5);
+  opacity: 0;
+  animation: floatUpAndFade 1.4s cubic-bezier(0.2, 0.6, 0.35, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes floatUpAndFade {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6) rotate(0deg);
+  }
+  20% {
+    opacity: 0.95;
+    transform: translate(calc(var(--note-dx) * 0.25), calc(var(--note-dy) * 0.25)) scale(1.1);
+  }
+  75% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--note-dx), var(--note-dy)) scale(1.2) rotate(var(--note-rot));
+  }
+}
+
+/* Playback Status Hint */
+.playback-hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: 10px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.status-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-faint);
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.status-pulse.playing {
+  background-color: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+  animation: pulseLight 1.5s infinite;
+}
+
+@keyframes pulseLight {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Minimal Audio Progress Bar */
+.audio-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 440px;
+  margin-bottom: 35px;
+}
+
+.time-text {
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  color: var(--text-muted);
+  min-width: 32px;
+}
+
+.progress-bar-track {
+  flex: 1;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  background-color: var(--text-main);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+/* =========================================================
+   4. MEMORY INFORMATION
+   ========================================================= */
+
+.memory-info {
+  width: 100%;
+  max-width: 580px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.memory-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.memory-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.memory-date {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.memory-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.music-icon {
+  font-size: 1.1rem;
+  color: var(--accent-gold);
+}
+
+.track-title {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.track-separator {
+  color: var(--text-faint);
+}
+
+.track-artist {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.memory-divider {
+  width: 36px;
+  height: 1px;
+  background-color: var(--text-faint);
+  margin: 0 auto 24px;
+}
+
+.memory-story {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #d8d4cd;
+  font-weight: 300;
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   5. RESPONSIVE DESIGN (Tablets & Mobile)
+   ========================================================= */
+
+@media (max-width: 680px) {
+  .view {
+    padding: 30px 16px 60px;
+  }
+
+  /* Grid becomes single column on small screens */
+  .record-grid {
+    grid-template-columns: minmax(220px, 280px);
+    gap: 40px;
+  }
+
+  .site-title {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+    line-height: 1.02;
+  }
+
+  /* Atmospheric backdrop on mobile */
+  .detail-atmosphere-backdrop {
+    height: 440px;
+    top: -30px;
+  }
+
+  /* Album showcase adjustments for mobile */
+  .album-showcase {
+    height: 280px;
+    max-width: 380px;
+  }
+
+  .album-sleeve {
+    left: 0;
+    width: 220px;
+    height: 220px;
+  }
+
+  .vinyl-disc-wrapper {
+    left: 0;
+    width: 220px;
+    height: 220px;
+    transform: translateX(85px);
+  }
+
+  #detail-vinyl {
+    width: 215px;
+    height: 215px;
+  }
+
+  .memory-story {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+}

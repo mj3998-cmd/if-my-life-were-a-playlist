@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>If My Life Were a Playlist</title>
+  
+  <!-- Google Fonts: Playfair Display (bold editorial display), Cormorant Garamond & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================================= -->
+  <!-- 1. MAIN PAGE VIEW: Grid of 4 Vinyl Records               -->
+  <!-- ========================================================= -->
+  <main id="main-view" class="view active">
+    <header class="site-header">
+      <div class="header-pretitle">
+        <span class="pretitle-rule"></span>
+        <span class="pretitle-text">A VISUAL &amp; AUDIO ARCHIVE</span>
+        <span class="pretitle-rule"></span>
+      </div>
+      <h1 class="site-title">
+        <span class="title-line title-line-1">IF MY LIFE</span>
+        <span class="title-line title-line-2">WERE A <em class="title-playlist">PLAYLIST</em></span>
+      </h1>
+      <p class="tagline">Four personal memories pressed into 33&#8531; RPM vinyl</p>
+      <div class="header-divider"></div>
+    </header>
+
+    <!-- 4 Records Grid -->
+    <section class="record-grid" id="record-grid">
+      <!-- Records are dynamically rendered by script.js -->
+    </section>
+
+    <footer class="site-footer">
+      <p>Select any record to open the memory</p>
+    </footer>
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- 2. ALBUM DETAIL VIEW: Cover + Sliding Vinyl + Info       -->
+  <!-- ========================================================= -->
+  <section id="detail-view" class="view" aria-hidden="true">
+    <!-- Atmospheric Blurred Memory Background (Upper Section Only) -->
+    <div class="detail-atmosphere-backdrop" id="detail-atmosphere-backdrop">
+      <img id="detail-atmosphere-img" src="" alt="" aria-hidden="true">
+      <div class="atmosphere-overlay"></div>
+    </div>
+
+    <!-- Navigation: Back to Main Page -->
+    <nav class="detail-nav">
+      <button id="back-btn" class="back-btn" aria-label="Back to collection">
+        <span class="back-arrow">&larr;</span> Back to Records
+      </button>
+      <span class="track-indicator" id="detail-track-num">Record 01 / 04</span>
+    </nav>
+
+    <div class="detail-container">
+      <!-- Album Sleeve + Sliding Vinyl Showcase -->
+      <div class="album-showcase">
+        <!-- Square Album Sleeve / Cover -->
+        <div class="album-sleeve" id="album-sleeve">
+          <img id="detail-cover-img" src="" alt="Album Cover Artwork">
+          <div class="sleeve-spine"></div>
+          <div class="sleeve-sheen"></div>
+        </div>
+
+        <!-- Vinyl Record (slides out to the right) -->
+        <div class="vinyl-disc-wrapper">
+          <div class="vinyl-disc interactive" id="detail-vinyl" role="button" tabindex="0" title="Click to play / pause music">
+            <!-- Vinyl Grooves Texture & Spotlight Sheen -->
+            <div class="vinyl-grooves"></div>
+            <div class="vinyl-sheen"></div>
+
+            <!-- Center Label Artwork -->
+            <div class="vinyl-center-label">
+              <img id="detail-label-img" src="" alt="Vinyl Label">
+              <!-- Center Spindle Hole -->
+              <div class="spindle-hole"></div>
+            </div>
+
+            <!-- Play / Pause Center Icon Overlay -->
+            <div class="vinyl-play-indicator" id="vinyl-indicator">
+              <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Playback Status & Hint -->
+      <div class="playback-hint">
+        <span class="status-pulse" id="status-pulse"></span>
+        <span id="playback-status-text">Click the vinyl record to play</span>
+      </div>
+
+      <!-- Simple Audio Progress Bar -->
+      <div class="audio-progress-container" id="progress-container">
+        <span class="time-text" id="time-current">0:00</span>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+        <span class="time-text" id="time-duration">0:00</span>
+      </div>
+
+      <!-- 4. Memory Information -->
+      <article class="memory-info">
+        <div class="memory-header">
+          <h2 class="memory-title" id="detail-title">Memory Title</h2>
+          <span class="memory-date" id="detail-date">Date</span>
+        </div>
+
+        <div class="memory-track">
+          <span class="music-icon">&#9835;</span>
+          <span class="track-title" id="detail-song">Song Title</span>
+          <span class="track-separator">&mdash;</span>
+          <span class="track-artist" id="detail-artist">Artist</span>
+        </div>
+
+        <div class="memory-divider"></div>
+
+        <p class="memory-story" id="detail-story">
+          Short personal story will appear here.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Hidden Native Audio Element (managed by script.js) -->
+  <audio id="audio-player" preload="metadata"></audio>
+
+  <!-- Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>
+
